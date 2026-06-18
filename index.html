@@ -4,8 +4,9 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="verification" content="1295e52abfc7aa0e332cc8d6875d17" />
-    <title>Магазин с корзиной</title>
+    <title>Женские сумки</title>
     <style>
+        /* ===== СТИЛИ ===== */
         * {
             margin: 0;
             padding: 0;
@@ -73,6 +74,20 @@
             font-weight: 700;
         }
 
+        /* ===== БЛОК С КАРТИНКОЙ ===== */
+        .hero-image {
+            text-align: center;
+            margin: 20px 0 30px 0;
+        }
+
+        .hero-image img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        /* ===== КАТАЛОГ ===== */
         .products-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -149,6 +164,7 @@
             background: #e94560;
         }
 
+        /* ===== КОРЗИНА ===== */
         .cart-overlay {
             display: none;
             position: fixed;
@@ -346,6 +362,7 @@
             font-size: 14px;
         }
 
+        /* ===== АДАПТИВНОСТЬ ===== */
         @media (max-width: 768px) {
             .products-grid {
                 grid-template-columns: repeat(2, 1fr);
@@ -361,20 +378,29 @@
     </style>
 </head>
 <body>
-
     <div class="container">
+        <!-- ===== ШАПКА ===== -->
         <div class="header">
-            <h1>🛒 Мой <span>Магазин</span></h1>
+            <h1>👜 <span>Женские сумки</span></h1>
             <button class="cart-icon" onclick="toggleCart()">
                 🛍️ Корзина
                 <span class="cart-badge" id="cartCount">0</span>
             </button>
         </div>
 
+        <!-- ===== КАРТИНКА ===== -->
+        <div class="hero-image">
+            <img src="https://github.com/Borser71/my-store/raw/main/xit.png" alt="Новинка или акция" />
+        </div>
+
+        <!-- ===== КАТАЛОГ ===== -->
         <div class="products-grid" id="productsGrid"></div>
-        <div class="footer">© 2026 Мой магазин · Доставка по всей России</div>
+
+        <!-- ===== ПОДВАЛ ===== -->
+        <div class="footer">© 2026 Женские сумки · Доставка по всей России</div>
     </div>
 
+    <!-- ===== МОДАЛЬНОЕ ОКНО КОРЗИНЫ ===== -->
     <div class="cart-overlay" id="cartOverlay" onclick="closeCartOutside(event)">
         <div class="cart-modal" onclick="event.stopPropagation()">
             <div class="cart-header">
@@ -393,11 +419,12 @@
         </div>
     </div>
 
+    <!-- ===== УВЕДОМЛЕНИЕ ===== -->
     <div class="toast" id="toast"></div>
 
     <script>
         // ============================================================
-        //  ТОВАРЫ — МЕНЯЙ ЗДЕСЬ!
+        //  ТОВАРЫ — МЕНЯЙТЕ ЗДЕСЬ!
         // ============================================================
         var products = [{
             id: 1,
@@ -438,11 +465,9 @@
         }];
 
         // ============================================================
-        //  НАСТРОЙКИ — ТВОЯ ССЫЛКА GETPLATINUM УЖЕ ВСТАВЛЕНА!
+        //  НАСТРОЙКА ОПЛАТЫ (ЗАМЕНИТЕ НА СВОЮ ССЫЛКУ)
         // ============================================================
-        var TELEGRAM_BOT_TOKEN = "7712345678:AAHdqTcvn1Ie87kDd7P8M7F7oK7Q7E7F7o"; // ЗАМЕНИ НА СВОЙ!
-        var TELEGRAM_CHAT_ID = "123456789"; // ЗАМЕНИ НА СВОЙ!
-        var GETPLATINUM_BASE = "https://interbor.getplatinum.ru/payment/0S54H1t"; // ✅ ТВОЯ ССЫЛКА
+        var PAYMENT_URL = "https://interbor.getplatinum.ru/payment/0S54H1t";
 
         // ============================================================
         //  КОРЗИНА
@@ -489,7 +514,6 @@
         //  ДОБАВИТЬ В КОРЗИНУ
         // ============================================================
         function addToCart(id) {
-            // Ищем товар
             var product = null;
             for (var i = 0; i < products.length; i++) {
                 if (products[i].id === id) {
@@ -499,7 +523,6 @@
             }
             if (!product) return;
 
-            // Добавляем
             if (cart[id]) {
                 cart[id].qty += 1;
             } else {
@@ -533,7 +556,6 @@
         function updateUI() {
             var totals = getTotals();
 
-            // Бейдж
             document.getElementById('cartCount').textContent = totals.count;
 
             var container = document.getElementById('cartItems');
@@ -592,7 +614,7 @@
         }
 
         // ============================================================
-        //  ОФОРМИТЬ ЗАКАЗ — ТВОЯ ССЫЛКА УЖЕ РАБОТАЕТ!
+        //  ОФОРМИТЬ ЗАКАЗ → ОПЛАТА
         // ============================================================
         function checkout() {
             var keys = Object.keys(cart);
@@ -603,35 +625,9 @@
 
             var totals = getTotals();
 
-            // Текст заказа для Telegram
-            var text = '🛍️ *Новый заказ!*\n\n';
-            for (var i = 0; i < keys.length; i++) {
-                var id = keys[i];
-                var item = cart[id];
-                var subtotal = item.price * item.qty;
-                text += '• ' + item.name + ' × ' + item.qty + ' = ' + subtotal.toLocaleString() + ' ₽\n';
-            }
-            text += '\n💰 *Итого: ' + totals.total.toLocaleString() + ' ₽*';
-
-            // Отправка в Telegram
-            var url = 'https://api.telegram.org/bot' + TELEGRAM_BOT_TOKEN + '/sendMessage';
-            var data = {
-                chat_id: TELEGRAM_CHAT_ID,
-                text: text,
-                parse_mode: 'Markdown'
-            };
-
-            fetch(url, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(data)
-            }).catch(function() {});
-
-            // ПЕРЕХОД НА GETPLATINUM С АВТОМАТИЧЕСКОЙ ПОДСТАНОВКОЙ СУММЫ
-            var payUrl = GETPLATINUM_BASE + '?amount=' + totals.total;
+            var payUrl = PAYMENT_URL + '?amount=' + totals.total;
             window.open(payUrl, '_blank');
 
-            // Очистка корзины
             cart = {};
             updateUI();
             toggleCart();
@@ -660,8 +656,7 @@
         updateUI();
 
         console.log('✅ Магазин работает! Товаров: ' + products.length);
-        console.log('✅ GetPlatinum ссылка: ' + GETPLATINUM_BASE);
+        console.log('✅ Ссылка для оплаты: ' + PAYMENT_URL);
     </script>
-
 </body>
 </html>
