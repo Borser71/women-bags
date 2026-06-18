@@ -401,7 +401,7 @@
         <!-- ===== ШАПКА ===== -->
         <div class="header">
             <h1>
-                <img src="https://digital.borser.site/images/log.png" alt="Логотип Женские сумки" class="header-logo" />
+                <img src="https://my-store.borser.site/images/log.png" alt="Логотип Женские сумки" class="header-logo" />
                 <span>Женские сумки</span>
             </h1>
             <button class="cart-icon" onclick="toggleCart()">
@@ -412,7 +412,7 @@
 
         <!-- ===== КАРТИНКА ===== -->
         <div class="hero-image">
-            <img src="https://digital.borser.site/images/xit.png" alt="Новинка или акция" />
+            <img src="https://my-store.borser.site/images/xit.png" alt="Новинка или акция" />
         </div>
 
         <!-- ===== КАТАЛОГ ===== -->
@@ -446,43 +446,43 @@
 
     <script>
         // ============================================================
-        //  ТОВАРЫ С ОБНОВЛЁННЫМИ ЦЕНАМИ
+        //  ТОВАРЫ
         // ============================================================
         var products = [{
             id: 1,
             name: "КРОСС-БОДИ",
             desc: "Компактная и удобная сумка на каждый день. Регулируемый ремень и лаконичный дизайн делают ее универсальным аксессуаром.",
-            price: 3042,
+            price: 1500,
             image: "111.png"
         }, {
             id: 2,
             name: "СУМКА НА ЦЕПОЧКЕ",
             desc: "Элегантная модель с просрочкой и золотой цепочкой. Подходит для вечерних образов и особых случаев.",
-            price: 2990,
+            price: 2300,
             image: "22.png"
         }, {
             id: 3,
             name: "СУМКА С РУЧКОЙ",
             desc: "Классическая и вместительная сумка с жесткой формой. Идеальна для работы и деловых встреч. Сочетает стиль и функциональность.",
-            price: 4096,
+            price: 3700,
             image: "33.png"
         }, {
             id: 4,
             name: "СУМКА С ПЛЕТЕНИЕМ",
             desc: "Мягкая объёмная форма, плетёная текстура. Выглядит премиально и подходит для повседневных и деловых образов.",
-            price: 5607,
+            price: 4200,
             image: "44.png"
         }, {
             id: 5,
             name: "СУМКА-ТОУТ",
             desc: "Структурированная модель с жёстким каркасом и двумя ручками. Элегантная и вместительная, подходит для офиса и города.",
-            price: 5571,
+            price: 1800,
             image: "5.png"
         }, {
             id: 6,
             name: "СУМКА-БАГЕТ",
             desc: "Компактная модель с тиснением под крокодила. Акцентный модный аксессуар для лёгких и женственных образов.",
-            price: 4190,
+            price: 990,
             image: "6.png"
         }];
 
@@ -507,7 +507,7 @@
                 html += `
                     <div class="product-card">
                         <div class="product-image">
-                            <img src="https://github.com/Borser71/my-store/raw/main/${p.image}" alt="${p.name}" />
+                            <img src="https://my-store.borser.site/images/${p.image}" alt="${p.name}" />
                         </div>
                         <div class="product-name">${p.name}</div>
                         <div class="product-desc">${p.desc}</div>
