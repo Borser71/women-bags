@@ -35,12 +35,22 @@
         }
 
         .header h1 {
+            display: flex;
+            align-items: center;
             font-size: 28px;
             color: #1a1a2e;
+            gap: 10px;
         }
 
         .header h1 span {
             color: #e94560;
+        }
+
+        .header-logo {
+            height: 60px; /* Логотип ровно 60px */
+            width: auto;
+            display: block;
+            object-fit: contain;
         }
 
         .cart-icon {
@@ -173,7 +183,7 @@
             background: #e94560;
         }
 
-        /* ===== КОРЗИНА (МОДАЛЬНОЕ ОКНО) ===== */
+        /* ===== КОРЗИНА ===== */
         .cart-overlay {
             display: none;
             position: fixed;
@@ -390,7 +400,10 @@
     <div class="container">
         <!-- ===== ШАПКА ===== -->
         <div class="header">
-            <h1>👜 <span>Женские сумки</span></h1>
+            <h1>
+                <img src="https://github.com/Borser71/my-store/raw/main/log.png" alt="Логотип Женские сумки" class="header-logo" />
+                <span>Женские сумки</span>
+            </h1>
             <button class="cart-icon" onclick="toggleCart()">
                 🛍️ Корзина
                 <span class="cart-badge" id="cartCount">0</span>
@@ -433,7 +446,7 @@
 
     <script>
         // ============================================================
-        //  ТОВАРЫ — ВСЕ КАРТИНКИ ОБНОВЛЕНЫ
+        //  ТОВАРЫ
         // ============================================================
         var products = [{
             id: 1,
@@ -458,7 +471,7 @@
             name: "СУМКА С ПЛЕТЕНИЕМ",
             desc: "Мягкая объёмная форма, плетёная текстура. Выглядит премиально и подходит для повседневных и деловых образов.",
             price: 4200,
-            image: "44.png"  // <--- ЗАМЕНА
+            image: "44.png"
         }, {
             id: 5,
             name: "СУМКА-ТОУТ",
