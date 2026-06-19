@@ -3,8 +3,10 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Договор оферты | Женские сумки</title>
+    <meta name="verification" content="1295e52abfc7aa0e332cc8d6875d17" />
+    <title>Женские сумки</title>
     <style>
+        /* ===== ОБЩИЕ СТИЛИ ===== */
         * {
             margin: 0;
             padding: 0;
@@ -14,215 +16,853 @@
 
         body {
             background: #f0f2f5;
-            padding: 30px 20px;
+            padding: 20px;
         }
 
         .container {
-            max-width: 900px;
+            max-width: 1100px;
             margin: 0 auto;
-            background: #fff;
-            border-radius: 20px;
-            padding: 40px 50px;
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.08);
         }
 
-        h1 {
+        /* ===== ШАПКА ===== */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0 30px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .header h1 {
+            display: flex;
+            align-items: center;
             font-size: 28px;
             color: #1a1a2e;
-            text-align: center;
-            margin-bottom: 8px;
+            gap: 10px;
         }
 
-        .subtitle {
-            text-align: center;
-            color: #888;
-            font-size: 15px;
-            margin-bottom: 35px;
-        }
-
-        .subtitle a {
+        .header h1 span {
             color: #e94560;
-            text-decoration: none;
         }
 
-        h2 {
-            font-size: 20px;
-            color: #1a1a2e;
-            margin: 30px 0 12px 0;
-            padding-bottom: 8px;
-            border-bottom: 2px solid #f0f2f5;
+        .header-logo {
+            height: 60px;
+            width: auto;
+            display: block;
+            object-fit: contain;
         }
 
-        p, li {
-            font-size: 15px;
-            color: #333;
-            line-height: 1.7;
+        .cart-icon {
+            background: #1a1a2e;
+            color: #fff;
+            padding: 12px 24px;
+            border-radius: 30px;
+            font-size: 16px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: background 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
-        ul {
-            padding-left: 25px;
-            margin: 10px 0 15px 0;
+        .cart-icon:hover {
+            background: #e94560;
         }
 
-        ul li {
-            margin-bottom: 6px;
+        .cart-badge {
+            background: #e94560;
+            color: #fff;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
+            font-weight: 700;
         }
 
-        .highlight {
-            background: #f8f9fa;
-            padding: 20px 25px;
+        /* ===== БЛОК С КАРТИНКОЙ ===== */
+        .hero-image {
+            text-align: center;
+            margin: 20px 0 30px 0;
+        }
+
+        .hero-image img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        /* ===== КАТАЛОГ ===== */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        .product-card {
+            background: #fff;
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+            transition: transform 0.2s;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-card:hover {
+            transform: translateY(-4px);
+        }
+
+        .product-image {
+            width: 100%;
+            aspect-ratio: 1/1;
+            background: #f5f6fa;
             border-radius: 12px;
-            margin: 20px 0;
-            border-left: 4px solid #e94560;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            margin-bottom: 15px;
         }
 
-        .highlight p {
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            border-radius: 12px;
+        }
+
+        .product-name {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1a1a2e;
             margin-bottom: 4px;
         }
 
-        .highlight strong {
+        .product-desc {
+            font-size: 14px;
+            color: #666;
+            flex-grow: 1;
+            margin-bottom: 10px;
+            white-space: pre-line;
+        }
+
+        .product-price {
+            font-size: 24px;
+            font-weight: 700;
+            color: #e94560;
+            margin-bottom: 14px;
+        }
+
+        .product-price span {
+            font-size: 16px;
+            font-weight: 400;
+            color: #888;
+        }
+
+        .btn-add {
+            background: #1a1a2e;
+            color: #fff;
+            border: none;
+            padding: 12px 0;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 15px;
+            cursor: pointer;
+            transition: background 0.2s;
+            width: 100%;
+        }
+
+        .btn-add:hover {
+            background: #e94560;
+        }
+
+        /* ===== КОРЗИНА ===== */
+        .cart-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .cart-overlay.active {
+            display: flex;
+        }
+
+        .cart-modal {
+            background: #fff;
+            border-radius: 20px;
+            max-width: 550px;
+            width: 95%;
+            max-height: 85vh;
+            padding: 30px;
+            overflow-y: auto;
+            animation: slideUp 0.3s ease;
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(30px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #f0f2f5;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+
+        .cart-header h2 {
+            font-size: 24px;
             color: #1a1a2e;
         }
 
-        .footer-note {
-            text-align: center;
-            color: #aaa;
-            font-size: 13px;
-            margin-top: 40px;
-            padding-top: 20px;
-            border-top: 1px solid #f0f2f5;
+        .cart-close {
+            background: none;
+            border: none;
+            font-size: 28px;
+            color: #888;
+            cursor: pointer;
         }
 
-        .back-link {
-            display: inline-block;
-            margin-top: 10px;
+        .cart-close:hover {
             color: #e94560;
-            text-decoration: none;
+        }
+
+        .cart-empty {
+            text-align: center;
+            color: #888;
+            padding: 40px 0;
+            font-size: 18px;
+        }
+
+        .cart-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid #f0f2f5;
+            gap: 12px;
+        }
+
+        .cart-item-info {
+            flex: 1;
+        }
+
+        .cart-item-name {
             font-weight: 600;
+            color: #1a1a2e;
+        }
+
+        .cart-item-price {
+            font-size: 14px;
+            color: #888;
+        }
+
+        .cart-item-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .cart-item-controls button {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            border: 1px solid #ddd;
+            background: #fff;
+            font-size: 18px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .cart-item-controls button:hover {
+            border-color: #1a1a2e;
+            background: #1a1a2e;
+            color: #fff;
+        }
+
+        .cart-item-qty {
+            font-weight: 600;
+            min-width: 24px;
+            text-align: center;
+        }
+
+        .cart-item-total {
+            font-weight: 700;
+            color: #e94560;
+            min-width: 70px;
+            text-align: right;
+        }
+
+        .cart-footer {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 2px solid #f0f2f5;
+        }
+
+        /* ===== ФОРМА ЗАКАЗА ===== */
+        .order-form {
+            margin-top: 15px;
+        }
+
+        .order-form label {
+            display: block;
+            font-weight: 600;
+            color: #1a1a2e;
+            margin-bottom: 4px;
+            font-size: 14px;
+        }
+
+        .order-form input {
+            width: 100%;
+            padding: 10px 14px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            font-size: 15px;
+            margin-bottom: 12px;
+            transition: border 0.2s;
+        }
+
+        .order-form input:focus {
+            outline: none;
+            border-color: #e94560;
+        }
+
+        .cart-total {
+            display: flex;
+            justify-content: space-between;
+            font-size: 22px;
+            font-weight: 700;
+            color: #1a1a2e;
+            margin-bottom: 15px;
+        }
+
+        .cart-total span {
+            color: #e94560;
+        }
+
+        .btn-checkout {
+            width: 100%;
+            background: #e94560;
+            color: #fff;
+            border: none;
+            padding: 16px;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .btn-checkout:hover {
+            background: #c0392b;
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #1a1a2e;
+            color: #fff;
+            padding: 16px 28px;
+            border-radius: 12px;
+            font-weight: 500;
+            z-index: 2000;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.4s ease;
+            pointer-events: none;
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ===== ПОДВАЛ С СОЦСЕТЯМИ И ССЫЛКОЙ НА ОФЕРТУ ===== */
+        .footer {
+            text-align: center;
+            padding: 40px 0 20px;
+            color: #aaa;
+            font-size: 14px;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-bottom: 15px;
+        }
+
+        .footer-links a {
+            color: #1a1a2e;
+            text-decoration: none;
+            font-weight: 500;
             transition: color 0.2s;
         }
 
-        .back-link:hover {
-            color: #c0392b;
+        .footer-links a:hover {
+            color: #e94560;
         }
 
-        @media (max-width: 600px) {
-            .container {
-                padding: 25px 20px;
+        .social-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+
+        .social-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 24px;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 16px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            color: #fff;
+        }
+
+        .social-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .btn-telegram {
+            background: #0088cc;
+        }
+
+        .btn-telegram:hover {
+            background: #0077b3;
+        }
+
+        .btn-whatsapp {
+            background: #25d366;
+        }
+
+        .btn-whatsapp:hover {
+            background: #1da851;
+        }
+
+        .social-btn svg {
+            width: 24px;
+            height: 24px;
+            fill: currentColor;
+        }
+
+        /* ===== АДАПТИВНОСТЬ ===== */
+        @media (max-width: 768px) {
+            .products-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 15px;
             }
-            h1 {
-                font-size: 22px;
+            .social-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            .social-btn {
+                width: 100%;
+                max-width: 280px;
+                justify-content: center;
+            }
+            .footer-links {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .products-grid {
+                grid-template-columns: 1fr;
             }
         }
     </style>
 </head>
 <body>
-
     <div class="container">
-        <h1>Договор публичной оферты</h1>
-        <p class="subtitle">
-            Интернет-магазин «Женские сумки» · <a href="https://borser.site/">borser.site</a>
-        </p>
-
-        <!-- ===== 1. ОБЩИЕ ПОЛОЖЕНИЯ ===== -->
-        <h2>1. Общие положения</h2>
-        <p>
-            1.1. Настоящий документ является официальной публичной офертой (далее — «Оферта») интернет-магазина «Женские сумки» (далее — «Продавец»), расположенного по адресу <strong>https://borser.site/</strong>, и адресована любому физическому лицу (далее — «Покупатель»), желающему приобрести товары, представленные на Сайте.
-        </p>
-        <p>
-            1.2. Оферта вступает в силу с момента её размещения на Сайте и действует до момента её отзыва Продавцом.
-        </p>
-
-        <!-- ===== 2. ПРЕДМЕТ ОФЕРТЫ ===== -->
-        <h2>2. Предмет оферты</h2>
-        <p>
-            2.1. Продавец обязуется передать в собственность Покупателю товары, а Покупатель обязуется принять и оплатить их на условиях, предусмотренных настоящей Офертой.
-        </p>
-        <p>
-            2.2. Товары представлены в каталоге на Сайте <strong>https://borser.site/</strong> с указанием наименования, описания, цены и изображения.
-        </p>
-
-        <!-- ===== 3. ПОРЯДОК ОФОРМЛЕНИЯ ЗАКАЗА ===== -->
-        <h2>3. Порядок оформления заказа</h2>
-        <ul>
-            <li>3.1. Покупатель выбирает товар на Сайте и добавляет его в корзину.</li>
-            <li>3.2. Покупатель заполняет форму заказа, указывая:
-                <ul>
-                    <li>— Имя;</li>
-                    <li>— Контактный телефон;</li>
-                    <li>— Адрес электронной почты;</li>
-                    <li>— Адрес доставки.</li>
-                </ul>
-            </li>
-            <li>3.3. После оформления заказа Покупатель переходит к оплате через платёжную систему.</li>
-            <li>3.4. Заказ считается оформленным после получения Продавцом подтверждения об успешной оплате.</li>
-        </ul>
-
-        <!-- ===== 4. ЦЕНА И ПОРЯДОК ОПЛАТЫ ===== -->
-        <h2>4. Цена и порядок оплаты</h2>
-        <p>4.1. Цена товара указывается на Сайте в российских рублях.</p>
-        <p>4.2. Оплата товара производится Покупателем в полном объёме через платёжную систему, указанную на Сайте.</p>
-        <p>4.3. Продавец не взимает дополнительных комиссий за оплату.</p>
-
-        <!-- ===== 5. ДОСТАВКА ===== -->
-        <h2>5. Доставка</h2>
-        <p>5.1. Доставка товаров осуществляется по всей территории России.</p>
-        <p>5.2. Сроки и стоимость доставки уточняются Покупателем при оформлении заказа или по согласованию с Продавцом.</p>
-        <p>5.3. Право собственности на товар переходит к Покупателю в момент получения товара и подписания документов о приёмке.</p>
-
-        <!-- ===== 6. ВОЗВРАТ ТОВАРА ===== -->
-        <h2>6. Возврат товара</h2>
-        <p>6.1. Покупатель имеет право вернуть товар надлежащего качества в течение 14 дней с момента получения, при условии сохранения товарного вида, упаковки и потребительских свойств.</p>
-        <p>6.2. Возврат товара ненадлежащего качества осуществляется в соответствии с законодательством РФ.</p>
-        <p>6.3. Стоимость доставки при возврате товара оплачивается Покупателем, если иное не предусмотрено соглашением сторон.</p>
-
-        <!-- ===== 7. ПРАВА И ОБЯЗАННОСТИ ===== -->
-        <h2>7. Права и обязанности сторон</h2>
-        <p><strong>7.1. Продавец обязуется:</strong></p>
-        <ul>
-            <li>— Предоставить полную и достоверную информацию о товарах;</li>
-            <li>— Обработать заказ в течение 24 часов после оплаты;</li>
-            <li>— Организовать доставку товара в согласованные сроки.</li>
-        </ul>
-        <p><strong>7.2. Покупатель обязуется:</strong></p>
-        <ul>
-            <li>— Предоставить достоверные данные при оформлении заказа;</li>
-            <li>— Оплатить товар в полном объёме;</li>
-            <li>— Принять товар в установленный срок.</li>
-        </ul>
-
-        <!-- ===== 8. КОНФИДЕНЦИАЛЬНОСТЬ ===== -->
-        <h2>8. Конфиденциальность</h2>
-        <p>8.1. Продавец обязуется не разглашать персональные данные Покупателя, полученные при оформлении заказа, за исключением случаев, предусмотренных законодательством РФ.</p>
-        <p>8.2. Данные передаются третьим лицам только в объёме, необходимом для выполнения заказа (доставка, платёжные системы).</p>
-
-        <!-- ===== 9. ОТВЕТСТВЕННОСТЬ ===== -->
-        <h2>9. Ответственность</h2>
-        <p>9.1. Продавец несёт ответственность за качество товара в соответствии с законодательством РФ.</p>
-        <p>9.2. Продавец не несёт ответственности за убытки Покупателя, возникшие в результате использования товара не по назначению.</p>
-        <p>9.3. Продавец не несёт ответственности за задержки в доставке, вызванные действиями транспортных компаний.</p>
-
-        <!-- ===== 10. СРОК ДЕЙСТВИЯ ===== -->
-        <h2>10. Срок действия оферты</h2>
-        <p>10.1. Оферта вступает в силу с момента её размещения на Сайте и действует до момента её отзыва Продавцом.</p>
-        <p>10.2. Продавец оставляет за собой право вносить изменения в условия Оферты без предварительного уведомления Покупателя.</p>
-
-        <!-- ===== 11. РЕКВИЗИТЫ ===== -->
-        <h2>11. Реквизиты продавца</h2>
-        <div class="highlight">
-            <p><strong>Интернет-магазин «Женские сумки»</strong></p>
-            <p><strong>Сайт:</strong> <a href="https://borser.site/">https://borser.site/</a></p>
-            <p><strong>Email:</strong> <a href="mailto:wisebor@gmail.com">wisebor@gmail.com</a></p>
-            <p><strong>Телефон:</strong> <a href="tel:+79527387256">+7 (952) 738-72-56</a></p>
-            <p><strong>ИНН:</strong> 665200001260</p>
+        <!-- ===== ШАПКА ===== -->
+        <div class="header">
+            <h1>
+                <img src="https://borser.site/images/log.png" alt="Логотип Женские сумки" class="header-logo" />
+                <span>Женские сумки</span>
+            </h1>
+            <button class="cart-icon" onclick="toggleCart()">
+                🛍️ Корзина
+                <span class="cart-badge" id="cartCount">0</span>
+            </button>
         </div>
 
+        <!-- ===== КАРТИНКА ===== -->
+        <div class="hero-image">
+            <img src="https://borser.site/images/xit.png" alt="Новинка или акция" />
+        </div>
+
+        <!-- ===== КАТАЛОГ ===== -->
+        <div class="products-grid" id="productsGrid"></div>
+
         <!-- ===== ПОДВАЛ ===== -->
-        <div class="footer-note">
-            <a href="https://borser.site/" class="back-link">← Вернуться в магазин</a>
-            <p style="margin-top: 10px;">© 2026 Женские сумки · Все права защищены</p>
+        <div class="footer">
+            <div class="footer-links">
+                <a href="https://borser.site/offer/">Договор оферты</a>
+                <a href="mailto:wisebor@gmail.com">wisebor@gmail.com</a>
+                <a href="tel:+79527387256">+7 (952) 738-72-56</a>
+            </div>
+
+            <div class="social-buttons">
+                <!-- Telegram -->
+                <a href="https://t.me/ваш_логин" target="_blank" class="social-btn btn-telegram">
+                    <svg viewBox="0 0 24 24"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+                    Telegram
+                </a>
+
+                <!-- WhatsApp -->
+                <a href="https://wa.me/79527387256" target="_blank" class="social-btn btn-whatsapp">
+                    <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                    WhatsApp
+                </a>
+            </div>
+
+            <p style="margin-top: 20px;">© 2026 Женские сумки · Доставка по всей России</p>
         </div>
     </div>
 
+    <!-- ===== МОДАЛЬНОЕ ОКНО КОРЗИНЫ С ФОРМОЙ ===== -->
+    <div class="cart-overlay" id="cartOverlay" onclick="closeCartOutside(event)">
+        <div class="cart-modal" onclick="event.stopPropagation()">
+            <div class="cart-header">
+                <h2>🛍️ Корзина</h2>
+                <button class="cart-close" onclick="toggleCart()">✕</button>
+            </div>
+            <div id="cartItems"></div>
+            <div class="cart-footer" id="cartFooter" style="display:none;">
+                <div class="cart-total">
+                    Итого: <span id="cartTotal">0 ₽</span>
+                </div>
+
+                <!-- ===== ФОРМА ДАННЫХ ПОКУПАТЕЛЯ ===== -->
+                <form id="orderForm" action="https://formspree.io/f/xzdqnzyv" method="POST">
+                    <div class="order-form">
+                        <label for="customerName">Имя *</label>
+                        <input type="text" id="customerName" name="name" placeholder="Введите ваше имя" required />
+
+                        <label for="customerPhone">Телефон *</label>
+                        <input type="tel" id="customerPhone" name="phone" placeholder="+7 (___) ___-__-__" required />
+
+                        <label for="customerEmail">Email *</label>
+                        <input type="email" id="customerEmail" name="email" placeholder="example@mail.ru" required />
+
+                        <label for="customerAddress">Адрес доставки *</label>
+                        <input type="text" id="customerAddress" name="address" placeholder="Город, улица, дом, квартира" required />
+
+                        <!-- Скрытые поля с данными заказа -->
+                        <input type="hidden" id="orderDetails" name="order" value="" />
+                    </div>
+
+                    <button type="submit" class="btn-checkout" style="margin-top: 10px;">
+                        ✅ Оформить заказ
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== УВЕДОМЛЕНИЕ ===== -->
+    <div class="toast" id="toast"></div>
+
+    <script>
+        // ============================================================
+        //  НАСТРОЙКА ОПЛАТЫ (ЗАМЕНИ НА ССЫЛКУ UNITPAY ИЛИ GETPLATINUM)
+        // ============================================================
+        var PAYMENT_URL = "https://interbor.getplatinum.ru/payment/0S54H1t";
+
+        // ============================================================
+        //  ТОВАРЫ
+        // ============================================================
+        var products = [{
+            id: 1,
+            name: "КРОСС-БОДИ",
+            desc: "Компактная и удобная сумка на каждый день. Регулируемый ремень и лаконичный дизайн делают ее универсальным аксессуаром.",
+            price: 3042,
+            image: "https://borser.site/images/111.png"
+        }, {
+            id: 2,
+            name: "СУМКА НА ЦЕПОЧКЕ",
+            desc: "Элегантная модель с просрочкой и золотой цепочкой. Подходит для вечерних образов и особых случаев.",
+            price: 2990,
+            image: "https://borser.site/images/22.png"
+        }, {
+            id: 3,
+            name: "СУМКА С РУЧКОЙ",
+            desc: "Классическая и вместительная сумка с жесткой формой. Идеальна для работы и деловых встреч. Сочетает стиль и функциональность.",
+            price: 4096,
+            image: "https://borser.site/images/33.png"
+        }, {
+            id: 4,
+            name: "СУМКА С ПЛЕТЕНИЕМ",
+            desc: "Мягкая объёмная форма, плетёная текстура. Выглядит премиально и подходит для повседневных и деловых образов.",
+            price: 5607,
+            image: "https://borser.site/images/44.png"
+        }, {
+            id: 5,
+            name: "СУМКА-ТОУТ",
+            desc: "Структурированная модель с жёстким каркасом и двумя ручками. Элегантная и вместительная, подходит для офиса и города.",
+            price: 5571,
+            image: "https://borser.site/images/5.png"
+        }, {
+            id: 6,
+            name: "СУМКА-БАГЕТ",
+            desc: "Компактная модель с тиснением под крокодила. Акцентный модный аксессуар для лёгких и женственных образов.",
+            price: 4190,
+            image: "https://borser.site/images/6.png"
+        }];
+
+        // ============================================================
+        //  КОРЗИНА
+        // ============================================================
+        var cart = {};
+
+        // ============================================================
+        //  ПОКАЗАТЬ ТОВАРЫ
+        // ============================================================
+        function renderProducts() {
+            var grid = document.getElementById('productsGrid');
+            var html = '';
+            for (var i = 0; i < products.length; i++) {
+                var p = products[i];
+                html += `
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="${p.image}" alt="${p.name}" />
+                        </div>
+                        <div class="product-name">${p.name}</div>
+                        <div class="product-desc">${p.desc}</div>
+                        <div class="product-price">${p.price.toLocaleString()} <span>₽</span></div>
+                        <button class="btn-add" onclick="addToCart(${p.id})">
+                            + В корзину
+                        </button>
+                    </div>
+                `;
+            }
+            grid.innerHTML = html;
+        }
+
+        // ============================================================
+        //  ПОСЧИТАТЬ СУММУ И КОЛИЧЕСТВО
+        // ============================================================
+        function getTotals() {
+            var total = 0;
+            var count = 0;
+            for (var id in cart) {
+                total += cart[id].price * cart[id].qty;
+                count += cart[id].qty;
+            }
+            return { total: total, count: count };
+        }
+
+        // ============================================================
+        //  ДОБАВИТЬ В КОРЗИНУ
+        // ============================================================
+        function addToCart(id) {
+            var product = null;
+            for (var i = 0; i < products.length; i++) {
+                if (products[i].id === id) {
+                    product = products[i];
+                    break;
+                }
+            }
+            if (!product) return;
+
+            if (cart[id]) {
+                cart[id].qty += 1;
+            } else {
+                cart[id] = {
+                    id: product.id,
+                    name: product.name,
+                    price: product.price,
+                    qty: 1
+                };
+            }
+
+            updateUI();
+            showToast('✅ ' + product.name + ' добавлен в корзину');
+        }
+
+        // ============================================================
+        //  УБРАТЬ ИЗ КОРЗИНЫ
+        // ============================================================
+        function removeFromCart(id) {
+            if (!cart[id]) return;
+            cart[id].qty -= 1;
+            if (cart[id].qty <= 0) {
+                delete cart[id];
+            }
+            updateUI();
+        }
+
+        // ============================================================
+        //  ОБНОВИТЬ ВСЁ
+        // ============================================================
+        function updateUI() {
+            var totals = getTotals();
+
+            document.getElementById('cartCount').textContent = totals.count;
+
+            var container = document.getElementById('cartItems');
+            var footer = document.getElementById('cartFooter');
+            var totalEl = document.getElementById('cartTotal');
+
+            var keys = Object.keys(cart);
+            if (keys.length === 0) {
+                container.innerHTML = '<div class="cart-empty">🛒 Корзина пуста</div>';
+                footer.style.display = 'none';
+                return;
+            }
+
+            footer.style.display = 'block';
+            var html = '';
+            for (var i = 0; i < keys.length; i++) {
+                var id = keys[i];
+                var item = cart[id];
+                var subtotal = item.price * item.qty;
+                html += `
+                    <div class="cart-item">
+                        <div class="cart-item-info">
+                            <div class="cart-item-name">${item.name}</div>
+                            <div class="cart-item-price">${item.price.toLocaleString()} ₽</div>
+                        </div>
+                        <div class="cart-item-controls">
+                            <button onclick="removeFromCart(${item.id})">−</button>
+                            <span class="cart-item-qty">${item.qty}</span>
+                            <button onclick="addToCart(${item.id})">+</button>
+                        </div>
+                        <div class="cart-item-total">${subtotal.toLocaleString()} ₽</div>
+                    </div>
+                `;
+            }
+            container.innerHTML = html;
+            totalEl.textContent = totals.total.toLocaleString() + ' ₽';
+        }
+
+        // ============================================================
+        //  ОТКРЫТЬ/ЗАКРЫТЬ КОРЗИНУ
+        // ============================================================
+        function toggleCart() {
+            var overlay = document.getElementById('cartOverlay');
+            if (overlay.classList.contains('active')) {
+                overlay.classList.remove('active');
+            } else {
+                overlay.classList.add('active');
+                updateUI();
+            }
+        }
+
+        function closeCartOutside(e) {
+            if (e.target === e.currentTarget) {
+                toggleCart();
+            }
+        }
+
+        // ============================================================
+        //  ОБРАБОТКА ФОРМЫ ПЕРЕД ОТПРАВКОЙ
+        // ============================================================
+        document.getElementById('orderForm').addEventListener('submit', function(e) {
+            var name = document.getElementById('customerName').value.trim();
+            var phone = document.getElementById('customerPhone').value.trim();
+            var email = document.getElementById('customerEmail').value.trim();
+            var address = document.getElementById('customerAddress').value.trim();
+
+            if (!name || !phone || !email || !address) {
+                e.preventDefault();
+                showToast('⚠️ Пожалуйста, заполните все поля формы');
+                return;
+            }
+
+            var totals = getTotals();
+
+            // Формируем текст заказа
+            var orderText = 'НОВЫЙ ЗАКАЗ!\n\n';
+            orderText += 'Клиент: ' + name + '\n';
+            orderText += 'Телефон: ' + phone + '\n';
+            orderText += 'Email: ' + email + '\n';
+            orderText += 'Адрес: ' + address + '\n\n';
+            orderText += 'Состав заказа:\n';
+
+            var keys = Object.keys(cart);
+            for (var i = 0; i < keys.length; i++) {
+                var id = keys[i];
+                var item = cart[id];
+                var subtotal = item.price * item.qty;
+                orderText += '• ' + item.name + ' × ' + item.qty + ' = ' + subtotal.toLocaleString() + ' ₽\n';
+            }
+
+            orderText += '\nИтого: ' + totals.total.toLocaleString() + ' ₽';
+
+            // Записываем данные заказа в скрытое поле
+            document.getElementById('orderDetails').value = orderText;
+
+            // Открываем оплату в новом окне
+            var payUrl = PAYMENT_URL + '?amount=' + totals.total;
+            window.open(payUrl, '_blank');
+
+            // Очищаем корзину после отправки
+            cart = {};
+            updateUI();
+
+            showToast('✅ Заказ отправлен! Сумма: ' + totals.total.toLocaleString() + ' ₽');
+        });
+
+        // ============================================================
+        //  УВЕДОМЛЕНИЕ
+        // ============================================================
+        var toastTimeout;
+
+        function showToast(message) {
+            var el = document.getElementById('toast');
+            el.textContent = message;
+            el.classList.add('show');
+            clearTimeout(toastTimeout);
+            toastTimeout = setTimeout(function() {
+                el.classList.remove('show');
+            }, 3000);
+        }
+
+        // ============================================================
+        //  ЗАПУСК
+        // ============================================================
+        renderProducts();
+        updateUI();
+
+        console.log('✅ Магазин работает! Товаров: ' + products.length);
+    </script>
 </body>
 </html>
