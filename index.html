@@ -521,7 +521,7 @@
             fill: currentColor;
         }
 
-        /* ===== ПЛАТЁЖНЫЕ СИСТЕМЫ ===== */
+        /* ===== ПЛАТЁЖНЫЕ СИСТЕМЫ (КРУГЛЫЕ) ===== */
         .payment-icons {
             display: flex;
             justify-content: center;
@@ -531,15 +531,28 @@
             flex-wrap: wrap;
         }
 
-        .payment-icons img {
-            height: 30px;
-            width: auto;
-            opacity: 0.8;
-            transition: opacity 0.2s;
+        .payment-icons .icon-wrapper {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: #ffffff;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.2s, box-shadow 0.2s;
+            overflow: hidden;
         }
 
-        .payment-icons img:hover {
-            opacity: 1;
+        .payment-icons .icon-wrapper:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+        }
+
+        .payment-icons .icon-wrapper img {
+            width: 60%;
+            height: 60%;
+            object-fit: contain;
         }
 
         /* ===== АДАПТИВНОСТЬ ===== */
@@ -564,8 +577,9 @@
             .footer-links .divider {
                 display: none;
             }
-            .payment-icons img {
-                height: 24px;
+            .payment-icons .icon-wrapper {
+                width: 40px;
+                height: 40px;
             }
         }
 
@@ -576,8 +590,9 @@
             .payment-icons {
                 gap: 12px;
             }
-            .payment-icons img {
-                height: 20px;
+            .payment-icons .icon-wrapper {
+                width: 36px;
+                height: 36px;
             }
         }
     </style>
@@ -630,11 +645,20 @@
                 </a>
             </div>
 
-            <!-- ===== ПЛАТЁЖНЫЕ СИСТЕМЫ ===== -->
+            <!-- ===== ПЛАТЁЖНЫЕ СИСТЕМЫ (КРУГЛЫЕ) ===== -->
             <div class="payment-icons">
-                <img src="https://borser.site/images/10.png" alt="Платёжная система" />
-                <img src="https://borser.site/images/11.png" alt="Платёжная система" />
-                <img src="https://borser.site/images/12.png" alt="Платёжная система" />
+                <div class="icon-wrapper">
+                    <img src="https://borser.site/images/10.png" alt="Платёжная система" />
+                </div>
+                <div class="icon-wrapper">
+                    <img src="https://borser.site/images/11.png" alt="Платёжная система" />
+                </div>
+                <div class="icon-wrapper">
+                    <img src="https://borser.site/images/12.png" alt="Платёжная система" />
+                </div>
+                <div class="icon-wrapper">
+                    <img src="https://borser.site/images/13.png" alt="СБП" />
+                </div>
             </div>
 
             <p style="margin-top: 25px;">© 2026 Женские сумки · Доставка по всей России</p>
@@ -783,7 +807,7 @@
         }
 
         // ============================================================
-        //  ДОБАВИТЬ В КОРЗИНУ
+        //  ДОБАВИТЬ В КОРЗИНУ (С ИСПРАВЛЕННЫМ УВЕДОМЛЕНИЕМ)
         // ============================================================
         function addToCart(id) {
             var product = null;
@@ -807,7 +831,8 @@
             }
 
             updateUI();
-            showToast('✅ ' + product.name + ' добавлен в корзину');
+            // ===== ИСПРАВЛЕННОЕ УВЕДОМЛЕНИЕ =====
+            showToast('✅ ' + product.name + ' добавлена в корзину');
         }
 
         // ============================================================
