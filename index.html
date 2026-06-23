@@ -724,22 +724,35 @@
         // ============================================================
         var UNITPAY_PUBLIC_KEY = "445568-d9bd2";
         var UNITPAY_SECRET_KEY = "sk_test_1be61c0d0c78d6e83fd33b1c8e09d235";
+        var UNITPAY_LOGIN = "wisebor@gmail.com";
 
         // ============================================================
-        //  ФУНКЦИЯ ГЕНЕРАЦИИ ПОДПИСИ (SIGNATURE)
+        //  ФУНКЦИЯ ГЕНЕРАЦИИ ПОДПИСИ (ПО ИНСТРУКЦИИ UNITPAY)
         // ============================================================
         function getUnitpaySignature(params, secretKey) {
-            // Сортируем ключи по алфавиту
-            var sortedKeys = Object.keys(params).sort();
+            // 1. Берем только нужные параметры в правильном порядке
+            var signParams = {
+                desc: params.desc,
+                sum: params.sum,
+                account: params.account,
+                currency: params.currency || 'RUB'
+            };
+
+            // 2. Сортируем ключи по алфавиту (как ksort в PHP)
+            var sortedKeys = Object.keys(signParams).sort();
             var signString = '';
             for (var i = 0; i < sortedKeys.length; i++) {
                 var key = sortedKeys[i];
-                if (key === 'signature' || key === 'test') continue; // Исключаем параметры подписи и test
-                signString += key + '=' + encodeURIComponent(params[key]) + '&';
+                signString += signParams[key];
+                if (i < sortedKeys.length - 1) {
+                    signString += '{up}';
+                }
             }
-            signString += secretKey;
-            // Вычисляем MD5-хэш
-            return CryptoJS.MD5(signString).toString();
+            // 3. Добавляем секретный ключ
+            signString += '{up}' + secretKey;
+
+            // 4. Вычисляем SHA-256 хэш
+            return CryptoJS.SHA256(signString).toString();
         }
 
         // ============================================================
@@ -932,104 +945,136 @@
         // ============================================================
         //  ОБРАБОТКА ФОРМЫ И ОПЛАТА
         // ============================================================
-        document.getElementById('orderForm').addEventListener('submit', function(e) {
-            e.preventDefault();
+        var orderForm = document.getElementById('orderForm');
 
-            var name = document.getElementById('customerName').value.trim();
-            var phone = document.getElementById('customerPhone').value.trim();
-            var email = document.getElementById('customerEmail').value.trim();
-            var address = document.getElementById('customerAddress').value.trim();
-            var agree = document.getElementById('agreePolicy').checked;
+        if (orderForm) {
+            orderForm.addEventListener('submit', function(e) {
+                e.preventDefault();
 
-            if (!name || !phone || !email || !address) {
-                showToast('⚠️ Пожалуйста, заполните все поля формы');
-                return;
-            }
+                var name = document.getElementById('customerName').value.trim();
+                var phone = document.getElementById('customerPhone').value.trim();
+                var email = document.getElementById('customerEmail').value.trim();
+                var address = document.getElementById('customerAddress').value.trim();
+                var agree = document.getElementById('agreePolicy').checked;
 
-            if (!agree) {
-                showToast('⚠️ Пожалуйста, дайте согласие на обработку персональных данных');
-                return;
-            }
-
-            var totals = getTotals();
-            if (totals.count === 0) {
-                showToast('⚠️ Корзина пуста');
-                return;
-            }
-
-            // ---- Формируем данные для оплаты ----
-            var orderId = 'ORDER_' + Date.now() + '_' + Math.random().toString(36).substr(2, 6);
-            var description = 'Заказ в магазине Женские сумки';
-
-            var paymentParams = {
-                sum: totals.total,
-                account: orderId,
-                desc: description,
-                test: 1 // <-- ТЕСТОВЫЙ РЕЖИМ
-            };
-
-            // ---- Генерация подписи ----
-            var signature = getUnitpaySignature(paymentParams, UNITPAY_SECRET_KEY);
-
-            // ---- Сборка ссылки для оплаты ----
-            var payUrl = 'https://unitpay.ru/pay/' + UNITPAY_PUBLIC_KEY + '?' +
-                'sum=' + encodeURIComponent(paymentParams.sum) +
-                '&account=' + encodeURIComponent(paymentParams.account) +
-                '&desc=' + encodeURIComponent(paymentParams.desc) +
-                '&test=' + encodeURIComponent(paymentParams.test) +
-                '&signature=' + encodeURIComponent(signature);
-
-            // ---- Отправка данных на Formspree ----
-            var orderText = 'НОВЫЙ ЗАКАЗ!\n\n';
-            orderText += 'Клиент: ' + name + '\n';
-            orderText += 'Телефон: ' + phone + '\n';
-            orderText += 'Email: ' + email + '\n';
-            orderText += 'Адрес: ' + address + '\n\n';
-            orderText += 'Состав заказа:\n';
-
-            var keys = Object.keys(cart);
-            for (var i = 0; i < keys.length; i++) {
-                var id = keys[i];
-                var item = cart[id];
-                var subtotal = item.price * item.qty;
-                orderText += '• ' + item.name + ' × ' + item.qty + ' = ' + subtotal.toLocaleString() + ' ₽\n';
-            }
-            orderText += '\nИтого: ' + totals.total.toLocaleString() + ' ₽';
-
-            document.getElementById('orderDetails').value = orderText;
-
-            // ---- Отправка формы ----
-            var form = document.getElementById('orderForm');
-            var formData = new FormData(form);
-            fetch(form.action, {
-                method: 'POST',
-                body: formData,
-                headers: {
-                    'Accept': 'application/json'
+                if (!name || !phone || !email || !address) {
+                    showToast('⚠️ Пожалуйста, заполните все поля формы');
+                    return;
                 }
-            }).then(function(response) {
-                if (response.ok) {
-                    showToast('✅ Заказ отправлен! Сумма: ' + totals.total.toLocaleString() + ' ₽');
-                } else {
+
+                if (!agree) {
+                    showToast('⚠️ Пожалуйста, дайте согласие на обработку персональных данных');
+                    return;
+                }
+
+                var totals = getTotals();
+                if (totals.count === 0) {
+                    showToast('⚠️ Корзина пуста');
+                    return;
+                }
+
+                // ---- Формируем данные для оплаты ----
+                var orderId = 'TEST_' + Date.now();
+                var description = 'Заказ в магазине Женские сумки';
+
+                var params = {
+                    account: orderId,
+                    currency: 'RUB',
+                    desc: description,
+                    sum: totals.total.toString(),
+                    test: 1,
+                    login: UNITPAY_LOGIN,
+                    paymentType: 'card'
+                };
+
+                // ---- Генерация подписи ----
+                var signature = getUnitpaySignature({
+                    desc: params.desc,
+                    sum: params.sum,
+                    account: params.account,
+                    currency: params.currency
+                }, UNITPAY_SECRET_KEY);
+
+                // ---- Отправка данных на Formspree ----
+                var orderText = 'НОВЫЙ ЗАКАЗ (ТЕСТ)!\n\n';
+                orderText += 'Клиент: ' + name + '\n';
+                orderText += 'Телефон: ' + phone + '\n';
+                orderText += 'Email: ' + email + '\n';
+                orderText += 'Адрес: ' + address + '\n\n';
+                orderText += 'Состав заказа:\n';
+
+                var keys = Object.keys(cart);
+                for (var i = 0; i < keys.length; i++) {
+                    var id = keys[i];
+                    var item = cart[id];
+                    var subtotal = item.price * item.qty;
+                    orderText += '• ' + item.name + ' × ' + item.qty + ' = ' + subtotal.toLocaleString() + ' ₽\n';
+                }
+                orderText += '\nИтого: ' + totals.total.toLocaleString() + ' ₽';
+
+                document.getElementById('orderDetails').value = orderText;
+
+                var form = document.getElementById('orderForm');
+                var formData = new FormData(form);
+                fetch(form.action, {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                }).then(function(response) {
+                    if (response.ok) {
+                        showToast('✅ Заказ отправлен! Сумма: ' + totals.total.toLocaleString() + ' ₽');
+                    } else {
+                        showToast('⚠️ Ошибка при отправке заказа, но вы можете продолжить оплату');
+                    }
+                }).catch(function() {
                     showToast('⚠️ Ошибка при отправке заказа, но вы можете продолжить оплату');
+                });
+
+                // ---- Переход на оплату через форму ----
+                // Создаем временную форму и отправляем её
+                var paymentForm = document.createElement('form');
+                paymentForm.action = 'https://unitpay.money/pay/' + UNITPAY_PUBLIC_KEY;
+                paymentForm.method = 'GET';
+                paymentForm.style.display = 'none';
+
+                var fields = {
+                    account: params.account,
+                    desc: params.desc,
+                    sum: params.sum,
+                    currency: params.currency,
+                    test: params.test,
+                    login: params.login,
+                    paymentType: params.paymentType,
+                    signature: signature
+                };
+
+                for (var key in fields) {
+                    var input = document.createElement('input');
+                    input.type = 'hidden';
+                    input.name = key;
+                    input.value = fields[key];
+                    paymentForm.appendChild(input);
                 }
-            }).catch(function() {
-                showToast('⚠️ Ошибка при отправке заказа, но вы можете продолжить оплату');
+
+                document.body.appendChild(paymentForm);
+                paymentForm.submit();
+                document.body.removeChild(paymentForm);
+
+                // ---- Очистка корзины и формы ----
+                cart = {};
+                document.getElementById('customerName').value = '';
+                document.getElementById('customerPhone').value = '';
+                document.getElementById('customerEmail').value = '';
+                document.getElementById('customerAddress').value = '';
+                document.getElementById('agreePolicy').checked = false;
+                updateUI();
+                toggleCart();
             });
-
-            // ---- Переход на оплату ----
-            window.open(payUrl, '_blank');
-
-            // ---- Очистка корзины ----
-            cart = {};
-            document.getElementById('customerName').value = '';
-            document.getElementById('customerPhone').value = '';
-            document.getElementById('customerEmail').value = '';
-            document.getElementById('customerAddress').value = '';
-            document.getElementById('agreePolicy').checked = false;
-            updateUI();
-            toggleCart();
-        });
+        } else {
+            console.error('Форма с ID "orderForm" не найдена на странице!');
+        }
 
         // ============================================================
         //  УВЕДОМЛЕНИЕ
