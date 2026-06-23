@@ -720,7 +720,7 @@
 
     <script>
         // ============================================================
-        //  НАСТРОЙКА ОПЛАТЫ ЧЕРЕЗ UNITPAY
+        //  НАСТРОЙКА ОПЛАТЫ ЧЕРЕЗ UNITPAY (ТОЛЬКО СБП)
         // ============================================================
         var UNITPAY_PUBLIC_KEY = "445568-d9bd2";
         var UNITPAY_SECRET_KEY = "sk_test_1be61c0d0c78d6e83fd33b1c8e09d235";
@@ -924,7 +924,7 @@
         }
 
         // ============================================================
-        //  ОБРАБОТКА ФОРМЫ И ОПЛАТА
+        //  ОБРАБОТКА ФОРМЫ И ОПЛАТА (ТОЛЬКО СБП)
         // ============================================================
         var orderForm = document.getElementById('orderForm');
 
@@ -991,7 +991,7 @@
                     showToast('⚠️ Ошибка при отправке заказа, но вы можете продолжить оплату');
                 });
 
-                // ---- 2. Формируем параметры для оплаты ----
+                // ---- 2. Формируем параметры для оплаты (ТОЛЬКО СБП) ----
                 var account = 'order_' + Date.now();
                 var currency = 'RUB';
                 var desc = 'Заказ в магазине Женские сумки';
@@ -1000,9 +1000,9 @@
                 // ---- 3. Генерация подписи (ПО ИНСТРУКЦИИ) ----
                 var signature = getUnitpaySignature(account, currency, desc, sum, UNITPAY_SECRET_KEY);
 
-                // ---- 4. Сборка ссылки ----
+                // ---- 4. Сборка ссылки (ТОЛЬКО СБП) ----
                 var resultUrl = 'https://borser.site/';
-                var payUrl = 'https://unitpay.money/pay/' + UNITPAY_PUBLIC_KEY + '/card?' +
+                var payUrl = 'https://unitpay.money/pay/' + UNITPAY_PUBLIC_KEY + '/sbp?' +
                     'account=' + encodeURIComponent(account) +
                     '&currency=' + encodeURIComponent(currency) +
                     '&desc=' + encodeURIComponent(desc) +
@@ -1013,7 +1013,7 @@
                     '&secretKey=' + encodeURIComponent(UNITPAY_SECRET_KEY) +
                     '&resultUrl=' + encodeURIComponent(resultUrl);
 
-                console.log('Ссылка на оплату:', payUrl);
+                console.log('Ссылка на оплату (СБП):', payUrl);
 
                 // ---- 5. Переход на оплату ----
                 window.open(payUrl, '_blank');
@@ -1054,7 +1054,7 @@
         updateUI();
 
         console.log('✅ Магазин работает! Товаров: ' + products.length);
-        console.log('✅ Unitpay тестовый режим включён');
+        console.log('✅ Unitpay тестовый режим включён (только СБП)');
     </script>
 </body>
 </html>
