@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="verification" content="1295e52abfc7aa0e332cc8d6875d17" />
     <title>Женские сумки</title>
-    <!-- ===== ПОДКЛЮЧЕНИЕ БИБЛИОТЕКИ ДЛЯ ПОДПИСИ ===== -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
     <style>
         /* ===== ОБЩИЕ СТИЛИ ===== */
@@ -15,12 +14,10 @@
             box-sizing: border-box;
             font-family: 'Segoe UI', system-ui, sans-serif;
         }
-
         body {
             background: #f0f2f5;
             padding: 20px;
         }
-
         .container {
             max-width: 1100px;
             margin: 0 auto;
@@ -35,7 +32,6 @@
             flex-wrap: wrap;
             gap: 15px;
         }
-
         .header h1 {
             display: flex;
             align-items: center;
@@ -43,18 +39,15 @@
             color: #1a1a2e;
             gap: 10px;
         }
-
         .header h1 span {
             color: #e94560;
         }
-
         .header-logo {
             height: 60px;
             width: auto;
             display: block;
             object-fit: contain;
         }
-
         .cart-icon {
             background: #1a1a2e;
             color: #fff;
@@ -69,11 +62,9 @@
             align-items: center;
             gap: 10px;
         }
-
         .cart-icon:hover {
             background: #e94560;
         }
-
         .cart-badge {
             background: #e94560;
             color: #fff;
@@ -92,12 +83,110 @@
             text-align: center;
             margin: 20px 0 30px 0;
         }
-
         .hero-image img {
             max-width: 100%;
             height: auto;
             border-radius: 16px;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        /* ===== ФИЛЬТР ===== */
+        .filter-section {
+            background: #fff;
+            border-radius: 16px;
+            padding: 20px 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 20px;
+        }
+        .filter-section .filter-label {
+            font-weight: 600;
+            color: #1a1a2e;
+            font-size: 16px;
+            margin-right: 5px;
+        }
+        .filter-group {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 10px;
+        }
+        .filter-group .group-label {
+            font-weight: 500;
+            color: #555;
+            font-size: 14px;
+            margin-right: 5px;
+        }
+        .filter-group button {
+            background: #f0f2f5;
+            border: none;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 500;
+            color: #555;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .filter-group button:hover {
+            background: #e0e0e0;
+        }
+        .filter-group button.active {
+            background: #1a1a2e;
+            color: #fff;
+        }
+
+        /* ===== СТИЛЬ ЦЕНЫ (КАК У КНОПОК) ===== */
+        .filter-price {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .filter-price .price-label {
+            font-weight: 500;
+            color: #555;
+            font-size: 14px;
+            margin-right: 5px;
+        }
+        .filter-price input {
+            width: 70px;
+            padding: 6px 10px;
+            border: none;
+            border-radius: 20px;
+            background: #f0f2f5;
+            font-size: 13px;
+            font-weight: 500;
+            color: #1a1a2e;
+            text-align: center;
+            transition: background 0.2s;
+        }
+        .filter-price input:focus {
+            outline: none;
+            background: #e0e0e0;
+        }
+        .filter-price input::placeholder {
+            color: #aaa;
+            font-weight: 400;
+        }
+
+        /* ===== КНОПКА СБРОСА (компактная, рядом с ценой) ===== */
+        .filter-reset {
+            background: none;
+            border: none;
+            color: #e94560;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            padding: 6px 12px;
+            border-radius: 20px;
+            transition: background 0.2s;
+        }
+        .filter-reset:hover {
+            background: #fce4ec;
         }
 
         /* ===== КАТАЛОГ ===== */
@@ -106,7 +195,6 @@
             grid-template-columns: repeat(3, 1fr);
             gap: 25px;
         }
-
         .product-card {
             background: #fff;
             border-radius: 16px;
@@ -116,11 +204,9 @@
             display: flex;
             flex-direction: column;
         }
-
         .product-card:hover {
             transform: translateY(-4px);
         }
-
         .product-image {
             width: 100%;
             aspect-ratio: 1/1;
@@ -132,21 +218,18 @@
             overflow: hidden;
             margin-bottom: 15px;
         }
-
         .product-image img {
             width: 100%;
             height: 100%;
             object-fit: contain;
             border-radius: 12px;
         }
-
         .product-name {
             font-size: 18px;
             font-weight: 600;
             color: #1a1a2e;
             margin-bottom: 4px;
         }
-
         .product-desc {
             font-size: 14px;
             color: #666;
@@ -154,20 +237,17 @@
             margin-bottom: 10px;
             white-space: pre-line;
         }
-
         .product-price {
             font-size: 24px;
             font-weight: 700;
             color: #e94560;
             margin-bottom: 14px;
         }
-
         .product-price span {
             font-size: 16px;
             font-weight: 400;
             color: #888;
         }
-
         .btn-add {
             background: #1a1a2e;
             color: #fff;
@@ -180,7 +260,6 @@
             transition: background 0.2s;
             width: 100%;
         }
-
         .btn-add:hover {
             background: #e94560;
         }
@@ -199,11 +278,9 @@
             justify-content: center;
             align-items: center;
         }
-
         .cart-overlay.active {
             display: flex;
         }
-
         .cart-modal {
             background: #fff;
             border-radius: 20px;
@@ -214,18 +291,10 @@
             overflow-y: auto;
             animation: slideUp 0.3s ease;
         }
-
         @keyframes slideUp {
-            from {
-                transform: translateY(30px);
-                opacity: 0;
-            }
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
         }
-
         .cart-header {
             display: flex;
             justify-content: space-between;
@@ -234,12 +303,10 @@
             padding-bottom: 15px;
             margin-bottom: 20px;
         }
-
         .cart-header h2 {
             font-size: 24px;
             color: #1a1a2e;
         }
-
         .cart-close {
             background: none;
             border: none;
@@ -247,18 +314,15 @@
             color: #888;
             cursor: pointer;
         }
-
         .cart-close:hover {
             color: #e94560;
         }
-
         .cart-empty {
             text-align: center;
             color: #888;
             padding: 40px 0;
             font-size: 18px;
         }
-
         .cart-item {
             display: flex;
             align-items: center;
@@ -267,27 +331,22 @@
             border-bottom: 1px solid #f0f2f5;
             gap: 12px;
         }
-
         .cart-item-info {
             flex: 1;
         }
-
         .cart-item-name {
             font-weight: 600;
             color: #1a1a2e;
         }
-
         .cart-item-price {
             font-size: 14px;
             color: #888;
         }
-
         .cart-item-controls {
             display: flex;
             align-items: center;
             gap: 10px;
         }
-
         .cart-item-controls button {
             width: 30px;
             height: 30px;
@@ -300,26 +359,22 @@
             align-items: center;
             justify-content: center;
         }
-
         .cart-item-controls button:hover {
             border-color: #1a1a2e;
             background: #1a1a2e;
             color: #fff;
         }
-
         .cart-item-qty {
             font-weight: 600;
             min-width: 24px;
             text-align: center;
         }
-
         .cart-item-total {
             font-weight: 700;
             color: #e94560;
             min-width: 70px;
             text-align: right;
         }
-
         .cart-footer {
             margin-top: 20px;
             padding-top: 20px;
@@ -330,7 +385,6 @@
         .order-form {
             margin-top: 15px;
         }
-
         .order-form label {
             display: block;
             font-weight: 600;
@@ -338,7 +392,6 @@
             margin-bottom: 4px;
             font-size: 14px;
         }
-
         .order-form input {
             width: 100%;
             padding: 10px 14px;
@@ -348,19 +401,16 @@
             margin-bottom: 12px;
             transition: border 0.2s;
         }
-
         .order-form input:focus {
             outline: none;
             border-color: #e94560;
         }
-
         .checkbox-group {
             display: flex;
             align-items: flex-start;
             gap: 10px;
             margin: 10px 0 15px 0;
         }
-
         .checkbox-group input[type="checkbox"] {
             width: 18px;
             height: 18px;
@@ -368,24 +418,20 @@
             margin-top: 2px;
             cursor: pointer;
         }
-
         .checkbox-group label {
             font-size: 14px;
             font-weight: 400;
             color: #555;
             cursor: pointer;
         }
-
         .checkbox-group label a {
             color: #e94560;
             text-decoration: none;
             font-weight: 500;
         }
-
         .checkbox-group label a:hover {
             text-decoration: underline;
         }
-
         .cart-total {
             display: flex;
             justify-content: space-between;
@@ -394,11 +440,9 @@
             color: #1a1a2e;
             margin-bottom: 15px;
         }
-
         .cart-total span {
             color: #e94560;
         }
-
         .btn-checkout {
             width: 100%;
             background: #e94560;
@@ -411,11 +455,9 @@
             cursor: pointer;
             transition: background 0.2s;
         }
-
         .btn-checkout:hover {
             background: #c0392b;
         }
-
         .btn-checkout:disabled {
             opacity: 0.5;
             cursor: not-allowed;
@@ -436,10 +478,38 @@
             transition: all 0.4s ease;
             pointer-events: none;
         }
-
         .toast.show {
             opacity: 1;
             transform: translateY(0);
+        }
+
+        /* ===== КНОПКА "НАВЕРХ" ===== */
+        .scroll-top-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background: #1a1a2e;
+            color: #fff;
+            border: none;
+            padding: 12px 28px;
+            border-radius: 30px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            margin-top: 15px;
+        }
+        .scroll-top-btn:hover {
+            background: #e94560;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+        .scroll-top-btn svg {
+            width: 22px;
+            height: 22px;
+            fill: currentColor;
         }
 
         /* ===== ПОДВАЛ ===== */
@@ -449,7 +519,6 @@
             color: #aaa;
             font-size: 14px;
         }
-
         .footer-links {
             display: flex;
             justify-content: center;
@@ -457,22 +526,18 @@
             flex-wrap: wrap;
             margin-bottom: 15px;
         }
-
         .footer-links a {
             color: #1a1a2e;
             text-decoration: none;
             font-weight: 500;
             transition: color 0.2s;
         }
-
         .footer-links a:hover {
             color: #e94560;
         }
-
         .footer-links .divider {
             color: #ddd;
         }
-
         .social-buttons {
             display: flex;
             justify-content: center;
@@ -480,7 +545,6 @@
             margin-top: 15px;
             flex-wrap: wrap;
         }
-
         .social-btn {
             display: inline-flex;
             align-items: center;
@@ -495,35 +559,27 @@
             cursor: pointer;
             color: #fff;
         }
-
         .social-btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
         }
-
         .btn-telegram {
             background: #0088cc;
         }
-
         .btn-telegram:hover {
             background: #0077b3;
         }
-
         .btn-whatsapp {
             background: #25d366;
         }
-
         .btn-whatsapp:hover {
             background: #1da851;
         }
-
         .social-btn svg {
             width: 24px;
             height: 24px;
             fill: currentColor;
         }
-
-        /* ===== ПЛАТЁЖНЫЕ СИСТЕМЫ (КРУГЛЫЕ) ===== */
         .payment-icons {
             display: flex;
             justify-content: center;
@@ -532,7 +588,6 @@
             margin-top: 20px;
             flex-wrap: wrap;
         }
-
         .payment-icons .icon-wrapper {
             width: 50px;
             height: 50px;
@@ -545,12 +600,10 @@
             transition: transform 0.2s, box-shadow 0.2s;
             overflow: hidden;
         }
-
         .payment-icons .icon-wrapper:hover {
             transform: translateY(-3px);
             box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
         }
-
         .payment-icons .icon-wrapper img {
             width: 60%;
             height: 60%;
@@ -562,6 +615,17 @@
             .products-grid {
                 grid-template-columns: repeat(2, 1fr);
                 gap: 15px;
+            }
+            .filter-section {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 15px;
+            }
+            .filter-group {
+                justify-content: center;
+            }
+            .filter-price {
+                justify-content: center;
             }
             .social-buttons {
                 flex-direction: column;
@@ -584,7 +648,6 @@
                 height: 40px;
             }
         }
-
         @media (max-width: 480px) {
             .products-grid {
                 grid-template-columns: 1fr;
@@ -595,6 +658,9 @@
             .payment-icons .icon-wrapper {
                 width: 36px;
                 height: 36px;
+            }
+            .filter-price input {
+                width: 60px;
             }
         }
     </style>
@@ -618,6 +684,50 @@
             <img src="https://borser.site/images/xit.png" alt="Новинка или акция" />
         </div>
 
+        <!-- ===== ФИЛЬТР ===== -->
+        <div class="filter-section" id="filterSection">
+            <span class="filter-label">Фильтр:</span>
+
+            <!-- Категории -->
+            <div class="filter-group" id="categoryFilter">
+                <span class="group-label">Тип:</span>
+                <button class="active" data-category="all">Все</button>
+                <button data-category="Кросс-боди">Кросс-боди</button>
+                <button data-category="Сумка на цепочке">На цепочке</button>
+                <button data-category="Сумка с ручкой">С ручкой</button>
+                <button data-category="Сумка с плетением">С плетением</button>
+                <button data-category="Сумка-тоут">Тоут</button>
+                <button data-category="Сумка-багет">Багет</button>
+            </div>
+
+            <!-- Материал -->
+            <div class="filter-group" id="materialFilter">
+                <span class="group-label">Материал:</span>
+                <button class="active" data-material="all">Все</button>
+                <button data-material="Кожа">Кожа</button>
+                <button data-material="Замша">Замша</button>
+                <button data-material="Текстиль">Текстиль</button>
+            </div>
+
+            <!-- Ручки -->
+            <div class="filter-group" id="handlesFilter">
+                <span class="group-label">Ручки:</span>
+                <button class="active" data-handles="all">Все</button>
+                <button data-handles="Короткие">Короткие</button>
+                <button data-handles="Средние">Средние</button>
+                <button data-handles="Длинные">Длинные</button>
+            </div>
+
+            <!-- Цена (стилизована как кнопки) + кнопка Сбросить -->
+            <div class="filter-price">
+                <span class="price-label">Цена:</span>
+                <input type="number" id="priceMin" placeholder="от" min="0" />
+                <span style="color:#888;">—</span>
+                <input type="number" id="priceMax" placeholder="до" min="0" />
+                <button class="filter-reset" id="resetFilter">Сбросить</button>
+            </div>
+        </div>
+
         <!-- ===== КАТАЛОГ ===== -->
         <div class="products-grid" id="productsGrid"></div>
 
@@ -632,22 +742,16 @@
                 <span class="divider">|</span>
                 <a href="tel:+79527387256">+7 (952) 738-72-56</a>
             </div>
-
             <div class="social-buttons">
-                <!-- Telegram -->
                 <a href="https://t.me/borisovsergey71" target="_blank" class="social-btn btn-telegram">
                     <svg viewBox="0 0 24 24"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
                     Telegram
                 </a>
-
-                <!-- WhatsApp -->
                 <a href="https://wa.me/79527387256" target="_blank" class="social-btn btn-whatsapp">
                     <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
                     WhatsApp
                 </a>
             </div>
-
-            <!-- ===== ПЛАТЁЖНЫЕ СИСТЕМЫ (КРУГЛЫЕ) ===== -->
             <div class="payment-icons">
                 <div class="icon-wrapper">
                     <img src="https://borser.site/images/10.png" alt="Платёжная система" />
@@ -662,12 +766,15 @@
                     <img src="https://borser.site/images/13.png" alt="СБП" />
                 </div>
             </div>
-
-            <p style="margin-top: 25px;">© 2026 Женские сумки · Доставка по всей России</p>
+            <button class="scroll-top-btn" onclick="scrollToTop()">
+                <svg viewBox="0 0 24 24"><path d="M12 4l-8 8h5v8h6v-8h5z"/></svg>
+                Наверх
+            </button>
+            <p style="margin-top: 20px;">© 2026 Женские сумки · Доставка по всей России</p>
         </div>
     </div>
 
-    <!-- ===== МОДАЛЬНОЕ ОКНО КОРЗИНЫ С ФОРМОЙ ===== -->
+    <!-- ===== МОДАЛЬНОЕ ОКНО КОРЗИНЫ ===== -->
     <div class="cart-overlay" id="cartOverlay" onclick="closeCartOutside(event)">
         <div class="cart-modal" onclick="event.stopPropagation()">
             <div class="cart-header">
@@ -679,43 +786,30 @@
                 <div class="cart-total">
                     Итого: <span id="cartTotal">0 ₽</span>
                 </div>
-
-                <!-- ===== ФОРМА ДАННЫХ ПОКУПАТЕЛЯ ===== -->
                 <form id="orderForm" action="https://formspree.io/f/xzdqnzyv" method="POST">
                     <div class="order-form">
                         <label for="customerName">Имя *</label>
                         <input type="text" id="customerName" name="name" placeholder="Введите ваше имя" required />
-
                         <label for="customerPhone">Телефон *</label>
                         <input type="tel" id="customerPhone" name="phone" placeholder="+7 (___) ___-__-__" required />
-
                         <label for="customerEmail">Email *</label>
                         <input type="email" id="customerEmail" name="email" placeholder="example@mail.ru" required />
-
                         <label for="customerAddress">Адрес доставки *</label>
                         <input type="text" id="customerAddress" name="address" placeholder="Город, улица, дом, квартира" required />
-
-                        <!-- ===== ЧЕКБОКС СОГЛАСИЯ ===== -->
                         <div class="checkbox-group">
                             <input type="checkbox" id="agreePolicy" required />
                             <label for="agreePolicy">
                                 Я ознакомлен(а) с <a href="https://borser.site/policy/" target="_blank">Политикой обработки персональных данных</a> и даю согласие на обработку своих персональных данных в целях оформления и доставки заказа.
                             </label>
                         </div>
-
-                        <!-- Скрытое поле с данными заказа -->
                         <input type="hidden" id="orderDetails" name="order" value="" />
                     </div>
-
-                    <button type="submit" class="btn-checkout" id="submitOrder">
-                        ✅ Оформить заказ
-                    </button>
+                    <button type="submit" class="btn-checkout" id="submitOrder">✅ Оформить заказ</button>
                 </form>
             </div>
         </div>
     </div>
 
-    <!-- ===== УВЕДОМЛЕНИЕ ===== -->
     <div class="toast" id="toast"></div>
 
     <script>
@@ -726,13 +820,12 @@
         var UNITPAY_SECRET_KEY = "sk_test_1be61c0d0c78d6e83fd33b1c8e09d235";
         var UNITPAY_LOGIN = "wisebor@gmail.com";
 
-        // ============================================================
-        //  ПРАВИЛЬНАЯ ФУНКЦИЯ ГЕНЕРАЦИИ ПОДПИСИ (ПО ИНСТРУКЦИИ)
-        // ============================================================
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
         function getUnitpaySignature(account, currency, desc, sum, secretKey) {
-            // Формируем строку для подписи в ПРАВИЛЬНОМ ПОРЯДКЕ
             var hashStr = account + '{up}' + currency + '{up}' + desc + '{up}' + sum + '{up}' + secretKey;
-            // Вычисляем SHA-256 хэш
             return CryptoJS.SHA256(hashStr).toString();
         }
 
@@ -744,52 +837,86 @@
             name: "КРОСС-БОДИ",
             desc: "Компактная и удобная сумка на каждый день. Регулируемый ремень и лаконичный дизайн делают ее универсальным аксессуаром.",
             price: 3042,
-            image: "https://borser.site/images/111.png"
+            image: "https://borser.site/images/111.png",
+            category: "Кросс-боди",
+            material: "Кожа",
+            handles: "Длинные"
         }, {
             id: 2,
             name: "СУМКА НА ЦЕПОЧКЕ",
             desc: "Элегантная модель с просрочкой и золотой цепочкой. Подходит для вечерних образов и особых случаев.",
             price: 2990,
-            image: "https://borser.site/images/22.png"
+            image: "https://borser.site/images/22.png",
+            category: "Сумка на цепочке",
+            material: "Кожа",
+            handles: "Длинные"
         }, {
             id: 3,
             name: "СУМКА С РУЧКОЙ",
             desc: "Классическая и вместительная сумка с жесткой формой. Идеальна для работы и деловых встреч. Сочетает стиль и функциональность.",
             price: 4096,
-            image: "https://borser.site/images/33.png"
+            image: "https://borser.site/images/33.png",
+            category: "Сумка с ручкой",
+            material: "Кожа",
+            handles: "Короткие"
         }, {
             id: 4,
             name: "СУМКА С ПЛЕТЕНИЕМ",
             desc: "Мягкая объёмная форма, плетёная текстура. Выглядит премиально и подходит для повседневных и деловых образов.",
             price: 5607,
-            image: "https://borser.site/images/44.png"
+            image: "https://borser.site/images/44.png",
+            category: "Сумка с плетением",
+            material: "Замша",
+            handles: "Средние"
         }, {
             id: 5,
             name: "СУМКА-ТОУТ",
             desc: "Структурированная модель с жёстким каркасом и двумя ручками. Элегантная и вместительная, подходит для офиса и города.",
             price: 5571,
-            image: "https://borser.site/images/5.png"
+            image: "https://borser.site/images/5.png",
+            category: "Сумка-тоут",
+            material: "Текстиль",
+            handles: "Короткие"
         }, {
             id: 6,
             name: "СУМКА-БАГЕТ",
             desc: "Компактная модель с тиснением под крокодила. Акцентный модный аксессуар для лёгких и женственных образов.",
             price: 4190,
-            image: "https://borser.site/images/6.png"
+            image: "https://borser.site/images/6.png",
+            category: "Сумка-багет",
+            material: "Замша",
+            handles: "Средние"
         }];
 
-        // ============================================================
-        //  КОРЗИНА
-        // ============================================================
         var cart = {};
 
-        // ============================================================
-        //  ПОКАЗАТЬ ТОВАРЫ
-        // ============================================================
-        function renderProducts() {
+        function renderProducts(filterCategory, priceMin, priceMax, filterMaterial, filterHandles) {
             var grid = document.getElementById('productsGrid');
             var html = '';
-            for (var i = 0; i < products.length; i++) {
-                var p = products[i];
+            var filtered = products;
+            if (filterCategory && filterCategory !== 'all') {
+                filtered = filtered.filter(function(p) { return p.category === filterCategory; });
+            }
+            if (filterMaterial && filterMaterial !== 'all') {
+                filtered = filtered.filter(function(p) { return p.material === filterMaterial; });
+            }
+            if (filterHandles && filterHandles !== 'all') {
+                filtered = filtered.filter(function(p) { return p.handles === filterHandles; });
+            }
+            var min = parseFloat(priceMin);
+            var max = parseFloat(priceMax);
+            if (!isNaN(min)) {
+                filtered = filtered.filter(function(p) { return p.price >= min; });
+            }
+            if (!isNaN(max)) {
+                filtered = filtered.filter(function(p) { return p.price <= max; });
+            }
+            if (filtered.length === 0) {
+                grid.innerHTML = '<div style="grid-column: 1 / -1; text-align: center; padding: 40px; color: #888; font-size: 18px;">Товаров не найдено</div>';
+                return;
+            }
+            for (var i = 0; i < filtered.length; i++) {
+                var p = filtered[i];
                 html += `
                     <div class="product-card">
                         <div class="product-image">
@@ -807,12 +934,46 @@
             grid.innerHTML = html;
         }
 
-        // ============================================================
-        //  ПОСЧИТАТЬ СУММУ И КОЛИЧЕСТВО
-        // ============================================================
+        function applyFilter() {
+            var activeCategory = document.querySelector('#categoryFilter .active');
+            var category = activeCategory ? activeCategory.dataset.category : 'all';
+            var activeMaterial = document.querySelector('#materialFilter .active');
+            var material = activeMaterial ? activeMaterial.dataset.material : 'all';
+            var activeHandles = document.querySelector('#handlesFilter .active');
+            var handles = activeHandles ? activeHandles.dataset.handles : 'all';
+            var priceMin = document.getElementById('priceMin').value;
+            var priceMax = document.getElementById('priceMax').value;
+            renderProducts(category, priceMin, priceMax, material, handles);
+        }
+
+        document.querySelectorAll('.filter-group button').forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                var parent = this.closest('.filter-group');
+                parent.querySelectorAll('button').forEach(function(b) {
+                    b.classList.remove('active');
+                });
+                this.classList.add('active');
+                applyFilter();
+            });
+        });
+
+        document.getElementById('priceMin').addEventListener('input', applyFilter);
+        document.getElementById('priceMax').addEventListener('input', applyFilter);
+
+        document.getElementById('resetFilter').addEventListener('click', function() {
+            document.getElementById('priceMin').value = '';
+            document.getElementById('priceMax').value = '';
+            document.querySelectorAll('.filter-group button').forEach(function(b) {
+                b.classList.remove('active');
+            });
+            document.querySelector('#categoryFilter button[data-category="all"]').classList.add('active');
+            document.querySelector('#materialFilter button[data-material="all"]').classList.add('active');
+            document.querySelector('#handlesFilter button[data-handles="all"]').classList.add('active');
+            applyFilter();
+        });
+
         function getTotals() {
-            var total = 0;
-            var count = 0;
+            var total = 0, count = 0;
             for (var id in cart) {
                 total += cart[id].price * cart[id].qty;
                 count += cart[id].qty;
@@ -820,9 +981,6 @@
             return { total: total, count: count };
         }
 
-        // ============================================================
-        //  ДОБАВИТЬ В КОРЗИНУ
-        // ============================================================
         function addToCart(id) {
             var product = null;
             for (var i = 0; i < products.length; i++) {
@@ -832,25 +990,15 @@
                 }
             }
             if (!product) return;
-
             if (cart[id]) {
                 cart[id].qty += 1;
             } else {
-                cart[id] = {
-                    id: product.id,
-                    name: product.name,
-                    price: product.price,
-                    qty: 1
-                };
+                cart[id] = { id: product.id, name: product.name, price: product.price, qty: 1 };
             }
-
             updateUI();
             showToast('✅ ' + product.name + ' добавлена в корзину');
         }
 
-        // ============================================================
-        //  УБРАТЬ ИЗ КОРЗИНЫ
-        // ============================================================
         function removeFromCart(id) {
             if (!cart[id]) return;
             cart[id].qty -= 1;
@@ -860,25 +1008,18 @@
             updateUI();
         }
 
-        // ============================================================
-        //  ОБНОВИТЬ ВСЁ
-        // ============================================================
         function updateUI() {
             var totals = getTotals();
-
             document.getElementById('cartCount').textContent = totals.count;
-
             var container = document.getElementById('cartItems');
             var footer = document.getElementById('cartFooter');
             var totalEl = document.getElementById('cartTotal');
-
             var keys = Object.keys(cart);
             if (keys.length === 0) {
                 container.innerHTML = '<div class="cart-empty">🛒 Корзина пуста</div>';
                 footer.style.display = 'none';
                 return;
             }
-
             footer.style.display = 'block';
             var html = '';
             for (var i = 0; i < keys.length; i++) {
@@ -904,9 +1045,6 @@
             totalEl.textContent = totals.total.toLocaleString() + ' ₽';
         }
 
-        // ============================================================
-        //  ОТКРЫТЬ/ЗАКРЫТЬ КОРЗИНУ
-        // ============================================================
         function toggleCart() {
             var overlay = document.getElementById('cartOverlay');
             if (overlay.classList.contains('active')) {
@@ -923,45 +1061,34 @@
             }
         }
 
-        // ============================================================
-        //  ОБРАБОТКА ФОРМЫ И ОПЛАТА (ТОЛЬКО СБП)
-        // ============================================================
         var orderForm = document.getElementById('orderForm');
-
         if (orderForm) {
             orderForm.addEventListener('submit', function(e) {
                 e.preventDefault();
-
                 var name = document.getElementById('customerName').value.trim();
                 var phone = document.getElementById('customerPhone').value.trim();
                 var email = document.getElementById('customerEmail').value.trim();
                 var address = document.getElementById('customerAddress').value.trim();
                 var agree = document.getElementById('agreePolicy').checked;
-
                 if (!name || !phone || !email || !address) {
                     showToast('⚠️ Пожалуйста, заполните все поля формы');
                     return;
                 }
-
                 if (!agree) {
                     showToast('⚠️ Пожалуйста, дайте согласие на обработку персональных данных');
                     return;
                 }
-
                 var totals = getTotals();
                 if (totals.count === 0) {
                     showToast('⚠️ Корзина пуста');
                     return;
                 }
-
-                // ---- 1. Отправка данных на Formspree ----
                 var orderText = 'НОВЫЙ ЗАКАЗ (ТЕСТ)!\n\n';
                 orderText += 'Клиент: ' + name + '\n';
                 orderText += 'Телефон: ' + phone + '\n';
                 orderText += 'Email: ' + email + '\n';
                 orderText += 'Адрес: ' + address + '\n\n';
                 orderText += 'Состав заказа:\n';
-
                 var keys = Object.keys(cart);
                 for (var i = 0; i < keys.length; i++) {
                     var id = keys[i];
@@ -970,17 +1097,13 @@
                     orderText += '• ' + item.name + ' × ' + item.qty + ' = ' + subtotal.toLocaleString() + ' ₽\n';
                 }
                 orderText += '\nИтого: ' + totals.total.toLocaleString() + ' ₽';
-
                 document.getElementById('orderDetails').value = orderText;
-
                 var form = document.getElementById('orderForm');
                 var formData = new FormData(form);
                 fetch(form.action, {
                     method: 'POST',
                     body: formData,
-                    headers: {
-                        'Accept': 'application/json'
-                    }
+                    headers: { 'Accept': 'application/json' }
                 }).then(function(response) {
                     if (response.ok) {
                         showToast('✅ Заказ отправлен! Сумма: ' + totals.total.toLocaleString() + ' ₽');
@@ -991,16 +1114,11 @@
                     showToast('⚠️ Ошибка при отправке заказа, но вы можете продолжить оплату');
                 });
 
-                // ---- 2. Формируем параметры для оплаты (ТОЛЬКО СБП) ----
                 var account = 'order_' + Date.now();
                 var currency = 'RUB';
                 var desc = 'Заказ в магазине Женские сумки';
                 var sum = totals.total.toString();
-
-                // ---- 3. Генерация подписи (ПО ИНСТРУКЦИИ) ----
                 var signature = getUnitpaySignature(account, currency, desc, sum, UNITPAY_SECRET_KEY);
-
-                // ---- 4. Сборка ссылки (ТОЛЬКО СБП) ----
                 var resultUrl = 'https://borser.site/';
                 var payUrl = 'https://unitpay.money/pay/' + UNITPAY_PUBLIC_KEY + '/sbp?' +
                     'account=' + encodeURIComponent(account) +
@@ -1012,13 +1130,8 @@
                     '&login=' + encodeURIComponent(UNITPAY_LOGIN) +
                     '&secretKey=' + encodeURIComponent(UNITPAY_SECRET_KEY) +
                     '&resultUrl=' + encodeURIComponent(resultUrl);
-
                 console.log('Ссылка на оплату (СБП):', payUrl);
-
-                // ---- 5. Переход на оплату ----
                 window.open(payUrl, '_blank');
-
-                // ---- 6. Очистка корзины и формы ----
                 cart = {};
                 document.getElementById('customerName').value = '';
                 document.getElementById('customerPhone').value = '';
@@ -1032,11 +1145,7 @@
             console.error('Форма с ID "orderForm" не найдена на странице!');
         }
 
-        // ============================================================
-        //  УВЕДОМЛЕНИЕ
-        // ============================================================
         var toastTimeout;
-
         function showToast(message) {
             var el = document.getElementById('toast');
             el.textContent = message;
@@ -1047,12 +1156,8 @@
             }, 3000);
         }
 
-        // ============================================================
-        //  ЗАПУСК
-        // ============================================================
-        renderProducts();
+        renderProducts('all', '', '', 'all', 'all');
         updateUI();
-
         console.log('✅ Магазин работает! Товаров: ' + products.length);
         console.log('✅ Unitpay тестовый режим включён (только СБП)');
     </script>
